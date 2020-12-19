@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { useForm } from "react-hook-form";
 
 const ErrorMessage = ({ message }) => (
   <p className="text-sm px-3 mt-1 text-red-500 inline-block">{message}</p>
@@ -11,7 +12,11 @@ const SuccessMessage = () => (
 );
 
 const SignupForm = ({ title }) => {
-  const isLoading = true;
+  const { register, errors, handleSubmit } = useForm();
+
+  const onSubmit = (data) => console.log({ data });
+
+  const isLoading = false;
 
   // css classes for our UI
   const formClass = classNames({
@@ -33,20 +38,29 @@ const SignupForm = ({ title }) => {
     <>
       <p className="p-1 mb-2">{title}</p>
       <SuccessMessage />
-      <form className="max-w-sm">
+      <form className="max-w-sm" onSubmit={handleSubmit(onSubmit)}>
         <div className={formClass}>
           <input
             className={inputClass}
             type="text"
-            placeholder="Jane Doe"
-            aria-label="Full name"
+            name="email"
+            ref={register({
+              required: "Email is required",
+              pattern: {
+                value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                message: "Please enter a valid email",
+              },
+            })}
+            placeholder="Jane.Doe@Email.com"
+            aria-label="email"
             disabled={isLoading}
           />
           <button className={btnClass} disabled={isLoading} type="submit">
             {isLoading ? "Processing" : "Sign Up"}
           </button>
         </div>
-        <ErrorMessage message="Please enter a valid email." />
+
+        {errors?.email && <ErrorMessage message={errors.email.message} />}
       </form>
     </>
   );
