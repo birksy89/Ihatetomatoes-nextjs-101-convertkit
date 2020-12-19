@@ -48,8 +48,9 @@ const SignupForm = ({ title }) => {
 
   // css classes for our UI
   const formClass = classNames({
-    "flex items-center border rounded-md border-gray-300 p-1 focus-within:border-blue-500 focus-within:ring-blue-200 focus-within:ring-4": true,
-    "bg-gray-100 border-gray-100": isLoading,
+    "flex items-center border rounded-md p-1 focus-within:border-blue-500 focus-within:ring-blue-200 focus-within:ring-4": true,
+    "border-gray-300": !isLoading,
+    "bg-gray-100 border-red-200": isLoading,
   });
 
   const inputClass = classNames({
