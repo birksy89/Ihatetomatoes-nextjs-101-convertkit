@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 const ErrorMessage = ({ message }) => (
   <p className="text-sm px-3 mt-1 text-red-500 inline-block">{message}</p>
 );
@@ -9,6 +11,8 @@ const SuccessMessage = () => (
 );
 
 const SignupForm = ({ title }) => {
+  const isLoading = true;
+
   return (
     <>
       <p className="p-1 mb-2">{title}</p>
