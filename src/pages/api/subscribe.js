@@ -14,7 +14,7 @@ export default async (req, res) => {
     // Send request to ConvertKit
     const data = { email, api_key: API_KEY };
 
-    const response = await fetch(`${API_URL}form/${FORM_ID}/subscribe`, {
+    const response = await fetch(`${API_URL}forms/${FORM_ID}/subscribe`, {
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",

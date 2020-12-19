@@ -1,14 +1,23 @@
 import classNames from "classnames";
 import { useForm } from "react-hook-form";
 import { QueryClientProvider, useMutation, useQueryClient } from "react-query";
+import { Cross } from "../icons";
 
 const ErrorMessage = ({ message }) => (
   <p className="text-sm px-3 mt-1 text-red-500 inline-block">{message}</p>
 );
 
-const SuccessMessage = () => (
-  <p className="text-sm p-3 bg-green-100 border rounded-md border-success text-success">
-    Success. Check your inbox and confirm your email.
+const SuccessMessage = ({ handleReset }) => (
+  <p className="text-sm p-3 bg-green-100 border rounded-md border-success text-success inline-flex">
+    <span>Success. Check your inbox and confirm your email.</span>
+    <span className="self-center flex mr-1">
+      <button
+        onClick={() => handleReset()}
+        className="bg-success text-white rounded-full h-4 w-4 mt-auto ml-1 hover:bg-red-500 transition-colors duration-200"
+      >
+        <Cross className="h-2 w-2 mx-auto" />
+      </button>
+    </span>
   </p>
 );
 
@@ -19,9 +28,14 @@ const SignupForm = ({ title }) => {
   const queryClient = useQueryClient();
 
   // Mutations
-  const { mutate, isSuccess, isLoading, isError, error } = useMutation((data) =>
-    subscribe(data)
-  );
+  const {
+    mutate,
+    isSuccess,
+    isLoading,
+    isError,
+    error,
+    reset,
+  } = useMutation((data) => subscribe(data));
   const onSubmit = (data) => mutate(data);
 
   const subscribe = async ({ email }) => {
@@ -49,7 +63,7 @@ const SignupForm = ({ title }) => {
   });
 
   if (isSuccess) {
-    return <SuccessMessage />;
+    return <SuccessMessage handleReset={reset} />;
   }
 
   return (
