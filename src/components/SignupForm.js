@@ -14,7 +14,11 @@ const SuccessMessage = () => (
 const SignupForm = ({ title }) => {
   const { register, errors, handleSubmit } = useForm();
 
-  const onSubmit = (data) => console.log({ data });
+  const subscribe = async ({ email }) => {
+    const res = await fetch(`/api/subscribe?email=${email}`);
+  };
+
+  const onSubmit = (data) => subscribe(data);
 
   const isLoading = false;
 
