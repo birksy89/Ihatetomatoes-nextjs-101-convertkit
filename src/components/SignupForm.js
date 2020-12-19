@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { useForm } from "react-hook-form";
+import { QueryClientProvider, useMutation, useQueryClient } from "react-query";
 
 const ErrorMessage = ({ message }) => (
   <p className="text-sm px-3 mt-1 text-red-500 inline-block">{message}</p>
@@ -14,13 +15,22 @@ const SuccessMessage = () => (
 const SignupForm = ({ title }) => {
   const { register, errors, handleSubmit } = useForm();
 
+  // Access the client
+  const queryClient = useQueryClient();
+
+  // Mutations
+  const { mutate, isSuccess, isLoading, isError, error } = useMutation((data) =>
+    subscribe(data)
+  );
+  const onSubmit = (data) => mutate(data);
+
   const subscribe = async ({ email }) => {
     const res = await fetch(`/api/subscribe?email=${email}`);
+
+    if (!res.ok) {
+      throw `An error has occured: ${res.status}`;
+    }
   };
-
-  const onSubmit = (data) => subscribe(data);
-
-  const isLoading = false;
 
   // css classes for our UI
   const formClass = classNames({
@@ -38,10 +48,15 @@ const SignupForm = ({ title }) => {
     "opacity-50 cursor-not-allowed": isLoading,
   });
 
+  if (isSuccess) {
+    return <SuccessMessage />;
+  }
+
   return (
-    <>
+    // Provide the client to your App
+    <QueryClientProvider client={queryClient}>
       <p className="p-1 mb-2">{title}</p>
-      <SuccessMessage />
+
       <form className="max-w-sm" onSubmit={handleSubmit(onSubmit)}>
         <div className={formClass}>
           <input
@@ -64,9 +79,12 @@ const SignupForm = ({ title }) => {
           </button>
         </div>
 
+        {/* Errors from react-form */}
         {errors?.email && <ErrorMessage message={errors.email.message} />}
+        {/* Errors from react-query */}
+        {isError && <ErrorMessage message={error} />}
       </form>
-    </>
+    </QueryClientProvider>
   );
 };
 
