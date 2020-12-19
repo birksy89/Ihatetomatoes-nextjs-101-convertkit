@@ -1,6 +1,6 @@
 export default async (req, res) => {
   const { email } = req.query;
-  console.log(email);
+  // console.log(email);
 
   if (!email) {
     return res.status(400).json({ error: "Email is required" });
