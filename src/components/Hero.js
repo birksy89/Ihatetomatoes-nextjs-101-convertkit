@@ -18,7 +18,7 @@ const Hero = () => {
     <div className="border border-gray-200 md:flex md:flex-row">
       <div className="bg-gray-100 text-center flex md:w-1/3">
         <img
-          className="mx-auto"
+          className="mx-auto object-contain"
           alt="NextJS 101"
           src="/assets/img_nextjs-101-cover.png"
         />
@@ -39,7 +39,7 @@ const Hero = () => {
         )}
 
         <ComingSoonBadge />
-        <SignupForm />
+        <SignupForm title="Leave your email below" />
       </div>
     </div>
   );

@@ -1,7 +1,18 @@
+const ErrorMessage = ({ message }) => (
+  <p className="text-sm px-3 mt-1 text-red-500 inline-block">{message}</p>
+);
+
+const SuccessMessage = () => (
+  <p className="text-sm p-3 bg-green-100 border rounded-md border-success text-success">
+    Success. Check your inbox and confirm your email.
+  </p>
+);
+
 const SignupForm = ({ title }) => {
   return (
     <>
       <p className="p-1 mb-2">{title}</p>
+      <SuccessMessage />
       <form className="max-w-sm">
         <div className="flex items-center border rounded-md border-gray-300 p-1 focus-within:border-blue-500 focus-within:ring-blue-200 focus-within:ring-4">
           <input
@@ -17,6 +28,7 @@ const SignupForm = ({ title }) => {
             Sign Up
           </button>
         </div>
+        <ErrorMessage message="Please enter a valid email." />
       </form>
     </>
   );
