@@ -17,7 +17,7 @@ export default function Home() {
         />
         <h1 className="mx-auto text-4xl font-bold">Welcome to Next.js 101!</h1>
         <Link href="/page-two">
-          <a>Go to page two</a>
+          <a className="text-red-400"> Go to page two</a>
         </Link>
       </main>
     </div>
