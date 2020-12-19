@@ -1,10 +1,11 @@
 import Head from "next/head";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div>
       <Head>
-        <title>Next.js 101</title>
+        <title>Page Two</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -14,7 +15,11 @@ export default function Home() {
           alt="Ihatetomatoes"
           src="/assets/img_logo.svg"
         />
-        <h1 className="mx-auto text-4xl font-bold">Welcome to Next.js 101!</h1>
+        <h1 className="mx-auto text-4xl font-bold">Welcome to Page Two!</h1>
+
+        <Link href="/">
+          <a>Go home</a>
+        </Link>
       </main>
     </div>
   );
